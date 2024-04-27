@@ -1,0 +1,482 @@
+<!--TODO: discord link opens in new tab on mobile, not app, to avoid issues  -->
+<!--TODO: fix live widgets for live scores and head to heads  -->
+<!--TODO: figure out how to send out orders with bot or script (DONE) --> 
+<!--TODO: add live chat bot and hire live support for order handling  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Picks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        /* Existing styles */
+        
+        /* Add this new font-family to your h1 tag */
+        .header-content h1 { 
+        font-family: 'Fredoka One', cursive; /* Your chosen font */
+        -webkit-text-fill-color: white; /* Fill color for WebKit browsers */
+        -webkit-text-stroke-width: 3px; /* Stroke width for WebKit browsers */
+        -webkit-text-stroke-color: black; /* Stroke color for WebKit browsers */
+        color: white; /* Fallback color for non-WebKit browsers */
+        text-stroke-width: 3px; /* Standard syntax; currently only supported in Chrome */
+        text-stroke-color: black; /* Standard syntax */
+    }
+    </style>
+</head>
+    <style>
+        /* Body and general styles */
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            height: 100%;
+            background-color: white; 
+        }
+        .content {
+            min-height: 100%;
+            /* Adjust the padding-bottom to the height of the footer */
+            padding-bottom: 150px; /* This should be equal to or greater than the height of your footer */
+            box-sizing: border-box; /* This makes sure the padding is included in the height */
+        }   
+        header { 
+            background: url('splatter.png') no-repeat center center, purple;
+            background-size: 500px; /* This will ensure the paint splatter fits within the header */
+            position: relative;
+            background-color: purple; 
+            color: black; 
+            padding: 10px 20px; 
+            text-align: center; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .sun {
+            width: 80px;
+            height: 80px;
+            background-color: #FFDD33;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            box-shadow: 0 0 8px #FFDD33, 0 0 12px #FFDD33;
+        }
+        .cloud, .cloud:before, .cloud:after {
+            background-color: #FFF;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .cloud {
+            width: 120px;
+            height: 60px;
+        }
+        .cloud:before {
+            content: '';
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            left: 10px;
+        }
+        .cloud:after {
+            content: '';
+            width: 80px;
+            height: 80px;
+            top: -40px;
+            right: 10px;
+        }
+        /* Cloud positioning
+        .cloud1 { top: 50px; left: 100px; }
+        .cloud2 { top: 80px; left: 300px; }
+        .cloud3 { top: 50px; left: 500px; }
+         */
+        /* Navigation styles */
+        nav { background: white; padding: 8px 20px; }
+        nav ul { list-style: none; padding: 0; }
+        nav ul li { display: inline; }
+        nav ul li a { 
+            color: purple; 
+            padding: 10px; 
+            text-decoration: none; 
+            border-radius: 20px; 
+            transition: background-color 0.2s ease; 
+        }
+        nav ul li a:hover { background-color: rgb(253, 223, 54); color: #FFF; }
+        section { margin: 20px; padding: 20px; background-color: white; border-radius: 8px; }
+        footer { 
+            background-color: purple; 
+            color: white; 
+            text-align: center; 
+            bottom: 0;
+            width: 100%;
+            /* Set the height of your footer */
+            height: 100px;
+        }
+        
+        /* Button styles */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px; /* Rounded corners */
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s ease; /* Smooth transition for interaction */
+        }
+        .btn-more {
+            background-color: #27AE60; /* Green background */
+            color: white;
+        }
+        .btn-more:hover {
+            transform: translateY(-2px); /* Slight raise on hover */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Shadow for depth */
+        }
+        .btn-less {
+            background-color: #9B51E0; /* Purple background */
+            color: white;
+        }
+        .btn-less:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        @media only screen and (min-width: 601px) {
+    .mobile-nav {
+        display: none; /* Ensures it stays hidden on desktops */
+    }
+}
+        /* Additional button styles can be added as needed */
+        @media only screen and (max-width: 600px) {
+            header img {
+                max-height: 60px; /* Smaller images on mobile */
+                margin-top: 46px;
+            }
+                /* Hide desktop navigation menu */
+            nav ul {
+                display: none;
+            }
+    
+            /* Style for mobile navigation button */
+            .mobile-nav button {
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+            }
+    
+            /* Dropdown content when displayed */
+            .dropdown-content {
+                display: none; /* Hidden by default, shown when button is clicked */
+                position: absolute; /* Position it on top of other content */
+                background-color: #f9f9f9;
+                width: 100%; /* Full width */
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+    
+            .dropdown-content li {
+                display: block;
+                text-align: left;
+            }
+    
+            .dropdown-content li a {
+                display: block;
+                padding: 10px;
+                color: purple;
+                text-decoration: none;
+                border-radius: 20px;
+                transition: background-color 0.2s ease;
+            }
+    
+            .dropdown-content li a:hover {
+                background-color: rgb(253, 223, 54);
+                color: #FFF;
+            }
+        }
+                /* Mobile navigation styles */
+        @media only screen and (max-width: 600px) {
+            .mobile-nav button {
+                background: white; /* White background color */
+                color: purple; /* Purple text color */
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+            }
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                width: 100%;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+            .dropdown-content li {
+                display: block;
+                text-align: left;
+            }
+            .dropdown-content li a {
+                display: block;
+                padding: 10px;
+                color: purple;
+                text-decoration: none;
+                border-radius: 20px;
+                transition: background-color 0.2s ease;
+            }
+            .dropdown-content li a:hover {
+                background-color: rgb(253, 223, 54);
+                color: white;
+            }
+        }
+           @media only screen and (max-width: 600px) {
+        /* Show the Discord link for mobile */
+        .discord-link-mobile {
+            display: inline-block; /* or flex if you need to align image and text */
+            align-items: center;
+            text-decoration: none;
+            color: #your-text-color; /* replace with your actual color */
+            margin-left: 10px; /* Space it out from the menu button */
+        }
+
+        /* Style adjustments for the mobile menu dropdown */
+        .mobile-nav {
+            display: flex;
+            justify-content: space-between; /* Align menu and Discord link */
+            align-items: center;
+            padding: 0 10px;
+        }
+        
+        /* Ensure dropdown content takes full width */
+        .dropdown-content {
+            width: 100%;
+            /* other styles */
+        }
+    }
+
+    /* Ensure the Discord link is not displayed on desktop */
+    @media only screen and (min-width: 601px) {
+        .discord-link-mobile {
+            display: none;
+        }
+    }
+
+    .h2h-container {
+        overflow-x: auto; /* Allows horizontal scrolling on smaller screens */
+    }
+            .discord-link-desktop {
+            text-decoration: none; /* This removes the underline */
+            /* ... other styles for discord-link-desktop ... */
+        }
+
+        /* Ensure that the link has no underline when it's hovered over, focused, or active */
+        .discord-link-desktop:hover,
+        .discord-link-desktop:focus,
+        .discord-link-desktop:active {
+            text-decoration: none;
+        }
+
+        .discord-link-mobile, .discord-link-desktop,
+.discord-link-mobile:hover, .discord-link-desktop:hover,
+.discord-link-mobile:active, .discord-link-desktop:active,
+.discord-link-mobile:visited, .discord-link-desktop:visited {
+    text-decoration: none; /* Ensures underline is removed in all states */
+}
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>ThrowawayPicks</h1>
+            <!-- The sun and clouds can be placed here as background elements -->
+        </div>
+
+        <img src="omalley2.png" alt="UFC Player" style="position: absolute; left: 10px; top: 15px; height: 120px;">
+<!--         <img src="holloway.png" alt="NBA Player" style="position: absolute; left: 22px; top: 7px; height: 110px;"> -->
+        <img src="pereria.png" alt="UFC Fighter" style="position: absolute; left: 40px; top: 20px; height: 150px; width: auto; object-fit: cover; object-position: center;">
+        <img src="garcia.png" alt="UFC Fighter" style="position: absolute; left: 100px; top: 20px; height: 150px; width: auto; object-fit: cover; object-position: center;">
+        <img src="lebron.png" alt="UFC Fighter" style="position: absolute; right: 70px; top: 5px; height: 150px; width: auto; object-fit: cover; object-position: center;">
+        <img src="jokicdoncic.png" alt="UFC Fighter" style="position: absolute; right: 8px; top: 2px; height: 150px; width: auto; object-fit: cover; object-position: center;">
+       
+       
+        <!-- 
+        <div class="sun"></div>
+        <div class="cloud cloud1"></div> -->
+        <!-- <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div> -->
+    </header>
+    <nav>
+        <ul>
+
+            <li><a class="btn" href="previouspicks.html">Previous Picks</a></li>
+            <li><a class="btn" href="#">Testimonials</a></li>
+            <li><a class="btn" href="stockspage.html">Stocks</a></li>
+            <li><a class="btn" href="#">Crypto</a></li>
+            <li><a class="btn" href="https://throwawaypicks.mysellix.io/">Subscribe</a></li>
+            <li><a class="btn" href="suppage.html">Live Support</a></li>
+        </ul>
+    </nav>
+    <!-- Mobile Navigation: The Discord link here will only be visible on mobile -->
+    <div class="mobile-nav">
+        <button id="dropdownMenuButton">&#9776; Menu</button>
+        <a href="https://discord.gg/nrpqVsbF5v" target="_blank" rel="noopener noreferrer" class="discord-link-mobile">
+            <img src="disclogo.png" alt="Join our Discord" style="height: 20px; width: 20px; vertical-align: middle;">
+            Join our Discord
+        </a>
+    </div>
+        
+            <ul id="dropdownMenuContent" class="dropdown-content" style="display: none;">
+            <li><a href="previouspicks.html">Previous Free Picks</a></li>
+            <li><a href="#">Testimonials</a></li>
+            <li><a href="stockspage.html">Stocks</a></li>
+            <li><a href="#">Crypto</a></li>
+            <li><a class="btn" href="https://throwawaypicks.mysellix.io/">Subscribe</a></li>
+            <li><a href="suppage.html">Live Support</a></li>
+        </ul>
+    </div>
+    <script>
+        // This script toggles the dropdown menu on mobile
+        document.getElementById('dropdownMenuButton').addEventListener('click', function() {
+            var content = document.getElementById('dropdownMenuContent');
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+            } else {
+                content.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+    <title>Newsletter Sign Up</title>
+    <style>
+            .discord-link-mobile {
+        display: none;
+    }
+            @media only screen and (max-width: 600px) {
+        /* Hide the desktop Discord link */
+        .discord-link-desktop {
+            display: none;
+            text-decoration: none; 
+            
+        }
+
+        /* Show the mobile Discord link */
+        .discord-link-mobile {
+            display: inline-block; 
+            text-decoration: none; /* or flex, depending on your design */
+            /* Additional styling for mobile link */
+        }
+
+        /* Adjust mobile nav container when menu is open */
+        .mobile-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+        }
+    }
+        .newsletter-signup {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .newsletter-signup h2 {
+            font-size: 18px; /* Smaller font size */
+            line-height: 1.2; /* Tighter line height */
+            width: 100%; /* Full width of its container */
+            padding: 0 10px; /* Adjust padding as needed */
+            white-space: nowrap; /* Prevent wrapping */
+            overflow: hidden; /* Hide overflow */
+            text-overflow: ellipsis; /* Add an ellipsis for text that overflows the container */
+        }
+        .newsletter-signup input[type="email"] {
+            width: calc(100% - 40px); /* This reduces the width */
+            padding: 5px 20px; /* Reduced padding and added horizontal padding */
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px; /* Increased border-radius for a smoother look */
+            font-size: 16px; /* Adjust font size as needed */
+            box-sizing: border-box; /* Include padding in the width */
+        }
+        .newsletter-signup input[type="submit"] {
+            width: 200%;
+            padding: 10px;
+            border: none;
+            background-color: lightblue;
+            color: lightslategray;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .newsletter-signup input[type="submit"]:hover {
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+
+
+
+</body>
+</html>
+    <section>
+       
+        
+        
+    <a href="https://discord.gg/nrpqVsbF5v" target="_blank" rel="noopener noreferrer" class="discord-link-desktop">
+            <img src="disclogo.png" alt="Join our Discord" style="height: 20px; width: 20px; text-decoration: none; vertical-align: middle;">
+            Join our Discord
+    </a>
+          
+        <h3>Today's Top Picks</h3>
+        <ul>
+            <!-- TODO: SAFELY refresh list at 12am feature -->
+            <li> Nuggets </li>
+            <li> Knicks </li>
+            <h4> Player Props:</h4>
+            <li> Nikola Jokic Over 22.5 pts </li>
+            <!-- <li> </li> -->
+        <ul>
+
+<!--             <p>Live Scores: </p>
+<div class="iframe-container">
+    <iframe id="bullscore-embed-40799" class="responsive-iframe" src="https://www.bullscore.com/basketball/embade/match_h2h/WoWGQQ/" frameborder="0" scrolling="no"></iframe>
+</div>
+<div class="iframe-container">
+    <iframe id="bullscore-embed-40843" class="responsive-iframe" src="https://www.bullscore.com/basketball/embade/match_h2h/WoWzoi/" frameborder="0" scrolling="no"></iframe>
+</div> -->
+        </ul>
+        <h3>Yesterday's Top Picks</h3>
+        <ul>
+            <!-- TODO: refresh list at 12am -->
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </section>
+    <section>
+        <h3>Upcoming Games: </h3>
+        <ul>
+            <!-- TODO: refresh list at 12am -->
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </section>
+    
+
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
+
+<!-- </section>
+<h1>Upcoming Match-Ups</h1>
+<iframe id="bullscore-embed-40768" width="100%" height="170"  src="https://www.bullscore.com/basketball/embade/match_h2h/WoWGtz/" frameborder="0" scrolling="no"></iframe>
+<section> -->
+
+<footer>
+    <p>&copy; 2024 Throwaway LLC. All rights reserved.</p>
+    <p> Always bet responsibly. </p>
+    <p> IF YOU OR SOMEONE YOU KNOW HAS A GAMBLING PROBLEM, CALL 1-800-GAMBLER FOR CRISIS COUNSELING AND REFERRAL SERVICES. SELECT YOUR STATE OF RESIDENCE TO VIEW ADDITIONAL STATE-SPECIFIC TERMS AND RESOURCES.</p>
+ 
+
