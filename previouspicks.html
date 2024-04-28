@@ -76,6 +76,23 @@
             height: auto;
             display: block;
         }
+        
+            @media only screen and (max-width: 768px) {
+        .full-width-image {
+            width: 150%;  /* Making the image larger on smaller screens */
+            max-width: none; /* Overrides any max-width set elsewhere */
+            height: auto; /* Maintain aspect ratio */
+            margin-left: -25%; /* Adjust this value to center the image if necessary */
+        }
+
+        #picksList article {
+            width: auto; /* Allow article width to adjust to screen size */
+            padding: 10px; /* Reduce padding on smaller screens */
+            margin: 0 5px; /* Reduce lateral margins */
+            box-shadow: none; /* Optional: remove shadows on mobile for cleaner design */
+        }
+    }
+</style>
     </style>
 </head>
 <body>
