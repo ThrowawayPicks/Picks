@@ -71,6 +71,13 @@
             border-radius: 8px;
             width: 200px;
         }
+
+        .full-width-image {
+    width: 100%;  /* Makes the image responsive */
+    height: auto; /* Maintains the aspect ratio */
+    display: block; /* Removes extra space below the image */
+        }
+
     </style>
 </head>
 <body>
@@ -118,9 +125,9 @@
                 <p>Outcome: </p>
             </article>
 
-            <<article>
-                 <h3>UFC/MMA</h3>
-                <img src="your-image-url.jpg" alt="UFC/MMA Image Description" width="300" height="500">
+            <article>
+                <h3>UFC/MMA</h3>
+                <img src="your-image-url.jpg" alt="UFC/MMA Image Description" class="full-width-image">
                 <p>Outcome: ✅</p>
             </article>
 
