@@ -297,17 +297,27 @@
 }
 
         @media only screen and (max-width: 600px) {
-    /* Targeting the specific iframe by ID for mobile devices */
+    /* Adjust styles for the live widget iframe */
     #bullscore-embed-40803 {
-        width: 600px; /* Set a specific width or use 100% if the content is responsive */
-        height: 172px; /* Maintain the height as needed */
-        border: none; /* Remove any default border */
-        overflow: hidden;
+        width: 100%; /* Set the width to 100% of the screen */
+        height: auto; /* Adjust the height automatically */
+        border: 0;
+        overflow: hidden; /* Hide any overflow */
+        -webkit-overflow-scrolling: touch;
         
-        /* Optional: If the iframe content is not responsive, you may scale it down */
-        /* Be cautious with scaling as it can make text too small and buttons hard to press */
-        transform: scale(0.83); /* Scale the iframe content to fit the screen, adjust as needed */
-        transform-origin: 0 0; /* Align the transformation to the top left */
+        /* The following properties will make the iframe responsive */
+        position: relative; /* Relative to its container */
+        padding-bottom: 56.25%; /* Maintain the aspect ratio (16:9) */
+        height: 0; /* Set the height to 0 to use padding for aspect ratio */
+    }
+
+    /* Adjust the iframe inside the container */
+    #bullscore-embed-40803 iframe {
+        position: absolute; /* Absolute position within the parent container */
+        top: 0;
+        left: 0;
+        width: 100%; /* Width is 100% of the container */
+        height: 100%; /* Height is the padding-bottom of the container */
     }
 }
 
