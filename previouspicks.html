@@ -135,6 +135,30 @@
 .discord-link-mobile:visited, .discord-link-desktop:visited {
     text-decoration: none; /* Ensures underline is removed in all states */
 }
+
+        @media only screen and (max-width: 600px) {
+        /* Hide the desktop Discord link */
+        .discord-link-desktop {
+            display: none;
+            text-decoration: none; 
+            
+        }
+
+        /* Show the mobile Discord link */
+        .discord-link-mobile {
+            display: inline-block; 
+            text-decoration: none; /* or flex, depending on your design */
+            /* Additional styling for mobile link */
+        }
+
+        /* Adjust mobile nav container when menu is open */
+        .mobile-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+        }
+    }
 </style>
     </style>
 </head>
@@ -154,7 +178,6 @@
         <p>Explore our archive of free picks. See our past advice and how we fared!</p>
             <!-- Mobile Navigation: The Discord link here will only be visible on mobile -->
     <div class="mobile-nav">
-        <button id="dropdownMenuButton">&#9776; Menu</button>
         <a href="https://discord.gg/nrpqVsbF5v" target="_blank" rel="noopener noreferrer" class="discord-link-mobile">
             <img src="disclogo.png" alt="Join our Discord" style="height: 20px; width: 20px; vertical-align: middle;">
             Join our Discord
