@@ -107,6 +107,34 @@
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Optional: Enhance shadow for depth effect */
         }
     }
+
+        @media only screen and (min-width: 601px) {
+        .discord-link-mobile {
+            display: none;
+        }
+    }
+
+    .h2h-container {
+        overflow-x: auto; /* Allows horizontal scrolling on smaller screens */
+    }
+            .discord-link-desktop {
+            text-decoration: none; /* This removes the underline */
+            /* ... other styles for discord-link-desktop ... */
+        }
+
+        /* Ensure that the link has no underline when it's hovered over, focused, or active */
+        .discord-link-desktop:hover,
+        .discord-link-desktop:focus,
+        .discord-link-desktop:active {
+            text-decoration: none;
+        }
+
+        .discord-link-mobile, .discord-link-desktop,
+.discord-link-mobile:hover, .discord-link-desktop:hover,
+.discord-link-mobile:active, .discord-link-desktop:active,
+.discord-link-mobile:visited, .discord-link-desktop:visited {
+    text-decoration: none; /* Ensures underline is removed in all states */
+}
 </style>
     </style>
 </head>
@@ -124,6 +152,22 @@
     <section>
         <h2>Check Out Our Members Wins!</h2>
         <p>Explore our archive of free picks. See our past advice and how we fared!</p>
+            <!-- Mobile Navigation: The Discord link here will only be visible on mobile -->
+    <div class="mobile-nav">
+        <button id="dropdownMenuButton">&#9776; Menu</button>
+        <a href="https://discord.gg/nrpqVsbF5v" target="_blank" rel="noopener noreferrer" class="discord-link-mobile">
+            <img src="disclogo.png" alt="Join our Discord" style="height: 20px; width: 20px; vertical-align: middle;">
+            Join our Discord
+        </a>
+        <section>
+       
+        
+        
+    <a href="https://discord.gg/nrpqVsbF5v" target="_blank" rel="noopener noreferrer" class="discord-link-desktop">
+            <img src="disclogo.png" alt="Join our Discord" style="height: 20px; width: 20px; text-decoration: none; vertical-align: middle;">
+            Join our Discord
+    </a>
+    </div>
         <div id="picksList">
             <article>
                 <h3>UFC/MMA</h3>
