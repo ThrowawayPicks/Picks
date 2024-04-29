@@ -295,6 +295,21 @@
         font-size: 1.2em; /* Increase the font size for better readability */
     }
 }
+
+        @media only screen and (max-width: 600px) {
+    /* Targeting the specific iframe by ID for mobile devices */
+    #bullscore-embed-40803 {
+        width: 600px; /* Set a specific width or use 100% if the content is responsive */
+        height: 172px; /* Maintain the height as needed */
+        border: none; /* Remove any default border */
+        
+        /* Optional: If the iframe content is not responsive, you may scale it down */
+        /* Be cautious with scaling as it can make text too small and buttons hard to press */
+        transform: scale(0.83); /* Scale the iframe content to fit the screen, adjust as needed */
+        transform-origin: 0 0; /* Align the transformation to the top left */
+    }
+}
+
     </style>
 </head>
 <body>
